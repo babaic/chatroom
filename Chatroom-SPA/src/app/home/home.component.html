@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 chat">
+      <div #messageBox class="content">
+        <div class="messages">
+          <!-- get last 10 archived messages from firebase -->
+          <div *ngFor="let item of messagesFromFirebase" class="message">
+            <div class="username">
+              <span class="badge badge-info">{{item.username}}</span>
+            </div>
+            <div [ngClass]="{'mymsg': item.username === username}" class="msg">
+              {{item.message}}
+            </div>
+          </div>
+          <!-- live messages -->
+          <div *ngFor="let item of dummyMsg" class="message">
+            <div class="username">
+              <span class="badge" [ngClass]="{'badge-info': item.username != 'YouTube', 'badge-danger': item.username === 'YouTube'}">{{item.username}}</span>
+            </div>
+            <div [ngClass]="{'mymsg': item.username === username, 'youtube': item.username === 'YouTube'}" class="msg">
+              {{item.message}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <form #msgForm="ngForm" (keydown)="sendMsg($event)">
+        <div class="form-group">
+          <label for="exampleTextarea">Message</label>
+          <textarea name="message" [(ngModel)]="message" class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 100px;"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="col-6 users">
+      <div class="card text-white bg-primary mb-6">
+        <div class="card-header">YouTube video</div>
+        <div class="card-body">
+          <iframe class="ytVideo" *ngIf="videourl != null" id="ytplayer" type="text/html" width="100%" height="307px"
+          [src]="videourl"
+          frameborder="0"></iframe>
+          <h3>{{title}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

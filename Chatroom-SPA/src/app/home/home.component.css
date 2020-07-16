@@ -1,0 +1,29 @@
+.content {
+    height: 400px;
+    background: black;
+    overflow: auto;
+}
+.messages {
+    padding: 10px;
+    margin-right: 10px;
+}
+.message {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.msg {
+    margin-left: 10px;
+    padding: 5px;
+    color:black;
+    background-color: #f1f0f0;
+    border: 1px solid;
+    border-radius: 15px;
+}
+.mymsg{
+    background-color: #0084ff !important;
+    color:white !important;
+}
+.msg.youtube {
+    background: #f44336 !important;
+}

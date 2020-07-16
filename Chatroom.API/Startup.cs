@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Chatroom.API.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace Chatroom.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +36,17 @@ namespace Chatroom.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200"));
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/notify");
+                routes.MapHub<VideoHub>("/videohub");
+            });
 
             app.UseMvc();
         }
