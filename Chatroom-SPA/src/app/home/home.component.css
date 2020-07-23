@@ -27,3 +27,12 @@
 .msg.youtube {
     background: #f44336 !important;
 }
+.videoform{
+    max-width: 100% !important;
+}
+
+@media (max-width: 426px) { 
+    .message{
+        display: table;
+    }
+ }

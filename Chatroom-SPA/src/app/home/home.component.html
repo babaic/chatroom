@@ -1,19 +1,10 @@
 <div class="container">
   <div class="row">
-    <div class="col-6 chat">
+    <div class="col-md-6 chat">
       <div #messageBox class="content">
         <div class="messages">
           <!-- get last 10 archived messages from firebase -->
           <div *ngFor="let item of messagesFromFirebase" class="message">
-            <div class="username">
-              <span class="badge badge-info">{{item.username}}</span>
-            </div>
-            <div [ngClass]="{'mymsg': item.username === username}" class="msg">
-              {{item.message}}
-            </div>
-          </div>
-          <!-- live messages -->
-          <div *ngFor="let item of dummyMsg" class="message">
             <div class="username">
               <span class="badge" [ngClass]="{'badge-info': item.username != 'YouTube', 'badge-danger': item.username === 'YouTube'}">{{item.username}}</span>
             </div>
@@ -26,11 +17,11 @@
       <form #msgForm="ngForm" (keydown)="sendMsg($event)">
         <div class="form-group">
           <label for="exampleTextarea">Message</label>
-          <textarea name="message" [(ngModel)]="message" class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 100px;"></textarea>
+          <textarea name="message" [(ngModel)]="message" class="form-control" id="exampleTextarea" rows="3" style="margin-top: 0px; margin-bottom: 0px; height: 100px;" placeholder="{{username}}..."></textarea>
         </div>
       </form>
     </div>
-    <div class="col-6 users">
+    <div class="col-md-6 users">
       <div class="card text-white bg-primary mb-6">
         <div class="card-header">YouTube video</div>
         <div class="card-body">
@@ -38,6 +29,19 @@
           [src]="videourl"
           frameborder="0"></iframe>
           <h3>{{title}}</h3>
+        </div>
+      </div>
+      <div class="card text-white bg-danger mb-3 videoform" style="max-width: 20rem;">
+        <div class="card-header">New video</div>
+        <div class="card-body">
+          <form #videoForm="ngForm" (ngSubmit)="insertYoutubeVideoToFirebase(videoForm)">
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="formVideo" name="formVideo" placeholder="Paste video Url" autocomplete="off">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit">Play!</button>
+              </span>
+            </div>
+          </form>
         </div>
       </div>
     </div>

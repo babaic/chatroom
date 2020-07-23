@@ -40,14 +40,15 @@ namespace Chatroom.API
             app.UseCors(x => x.AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200"));
+                .WithOrigins("http://localhost:4200/"));
 
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/notify");
                 routes.MapHub<VideoHub>("/videohub");
             });
-
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }
